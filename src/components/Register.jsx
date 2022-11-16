@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
+import { Alert } from './Alert';
 
 export const Register = () => {
 
@@ -30,7 +31,7 @@ export const Register = () => {
   return (
     <div>
 
-      {error && <p>{error}</p>}
+      {error && <Alert message={error} />}
 
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
