@@ -5,7 +5,8 @@ import {
   onAuthStateChanged,
   signOut,
   GoogleAuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  sendPasswordResetEmail
 } from 'firebase/auth';
 
 import { auth } from '../firebase.config';
@@ -33,6 +34,8 @@ export function AuthProvider({ children }) {
     return signInWithPopup(auth, googleProvider)
   };
 
+  const resetPassword = (email) => sendPasswordResetEmail(auth, email);
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currenUser => {
       setUser(currenUser);
@@ -43,7 +46,7 @@ export function AuthProvider({ children }) {
   }, [])
 
   return (
-    <authContext.Provider value={{ signup, login, user, logout, loading, loginWithGoogle }}>
+    <authContext.Provider value={{ signup, login, user, logout, loading, loginWithGoogle, resetPassword }}>
       {children}
     </authContext.Provider>
   )
